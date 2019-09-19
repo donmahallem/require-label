@@ -3,3 +3,6 @@ description: "Configure your PRs to have a label"
 runs:
   using: 'node12'
   main: 'dist/index.js'
+branding:
+  icon: 'bookmark'
+  color: 'orange'

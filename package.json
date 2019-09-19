@@ -56,9 +56,9 @@
     "esModuleInterop": true
   },
   "devDependencies": {
-    "nodemon": "^1.19.2",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.3"
+    "nodemon": "~1.19.2",
+    "tslint": "~5.20.0",
+    "typescript": "~3.6.3"
   },
   "nyc": {
     "include": [
@@ -91,7 +91,7 @@
     "src/*"
   ],
   "dependencies": {
-    "@actions/core": "^1.1.1",
-    "@actions/github": "^1.1.0"
+    "@actions/core": "~1.1.1",
+    "@actions/github": "~1.1.0"
   }
 }
