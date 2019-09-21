@@ -19,4 +19,4 @@ jobs:
         id: hello
         uses: ./
         with:
-          filter: [testlabel,bug,enhancement]
+          filter: testlabel,bug,enhancement
