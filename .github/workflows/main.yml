@@ -13,10 +13,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: No Filter
-        id: hello
+        id: check1
         uses: ./
       - name: No Filter
-        id: hello
+        id: check2
         uses: ./
         with:
           filter: testlabel,bug,enhancement
