@@ -14,6 +14,7 @@ if (github.context.action.localeCompare('pull_request')) {
         const prData: any = github.context.payload.pull_request;
         if (prData.labels && prData.labels.length > 0 && config) {
             actionscore.info("Label present");
+            process.exit(78)
         } else {
             actionscore.setFailed("No Label");
         }
