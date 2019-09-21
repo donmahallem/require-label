@@ -1,5 +1,4 @@
 name: Check for required label
-id: test3
 on:
   pull_request:
     types: [opened, labeled, unlabeled, synchronize]
