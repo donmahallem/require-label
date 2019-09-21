@@ -5,27 +5,44 @@ import { Config } from './config';
 const config: Config = {
     FILTER: actionscore.getInput("filter", {
         required: false
+    }),
+    GITHUB_SECRET: actionscore.getInput("github_secret", {
+        required: true
     })
 };
 console.log("filter: ", config.FILTER)
 console.log(github.context.action, github.context.eventName);
-if (github.context.action.localeCompare('pull_request')) {
-    if (github.context.payload.pull_request) {
-        const prData: any = github.context.payload.pull_request;
-        if (prData.labels && prData.labels.length > 0 && config) {
-            actionscore.info("Label present");
-            process.exit(78)
+async function runa() {
+    if (github.context.action.localeCompare('pull_request')) {
+
+
+        if (github.context.payload.pull_request) {
+            const prData: any = github.context.payload.pull_request;
+            const githubClient: any = new github.GitHub(config.GITHUB_SECRET);
+            const data = githubClient.checks.create({
+                owner: prData.user.login,
+                repo: prData.head.repo.name,
+                name: "require-label",
+                head_sha: prData.head.sha,
+                conclusion: prData.labels.length > 0 ? 'success' : 'failure'
+            })
+            console.log(JSON.stringify(data))
         } else {
-            actionscore.setFailed("No Label");
+
+            console.log("test");
+            const payload = JSON.stringify(github.context.payload, undefined, 2);
+            console.log(payload);
+            actionscore.setOutput("T1", "T2");
+            actionscore.setFailed("Bommel");
         }
     } else {
-
-        console.log("test");
-        const payload = JSON.stringify(github.context.payload, undefined, 2);
-        console.log(payload);
-        actionscore.setOutput("T1", "T2");
-        actionscore.setFailed("Bommel");
+        actionscore.setFailed('This action can only be used on pull requests');
     }
-} else {
-    actionscore.setFailed('This action can only be used on pull requests');
 }
+
+runa().catch((err) => {
+    console.error(err);
+    actionscore.setFailed("Error");
+}).then(() => {
+    actionscore.info("Success");
+})

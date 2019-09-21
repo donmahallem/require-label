@@ -5,6 +5,10 @@ inputs:
     description: 'List of valid labels'
     required: false
     default: ''
+  github_secret:  # id of input
+    description: 'List of valid labels'
+    required: true
+    default: ''
 runs:
   using: 'node12'
   main: 'dist/index.js'

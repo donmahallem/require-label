@@ -1,3 +1,4 @@
 export interface Config {
-    FILTER: string
+    FILTER: string,
+    GITHUB_SECRET: string
 }

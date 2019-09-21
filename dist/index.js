@@ -3849,38 +3849,62 @@ isStream.transform = function (stream) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const github = __webpack_require__(469);
 const actionscore = __webpack_require__(470);
 const config = {
     FILTER: actionscore.getInput("filter", {
         required: false
+    }),
+    GITHUB_SECRET: actionscore.getInput("github_secret", {
+        required: true
     })
 };
 console.log("filter: ", config.FILTER);
 console.log(github.context.action, github.context.eventName);
-if (github.context.action.localeCompare('pull_request')) {
-    if (github.context.payload.pull_request) {
-        const prData = github.context.payload.pull_request;
-        if (prData.labels && prData.labels.length > 0 && config) {
-            actionscore.info("Label present");
-            process.exit(78);
+function runa() {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (github.context.action.localeCompare('pull_request')) {
+            if (github.context.payload.pull_request) {
+                const prData = github.context.payload.pull_request;
+                const githubClient = new github.GitHub(config.GITHUB_SECRET);
+                const data = githubClient.checks.create({
+                    owner: prData.user.login,
+                    repo: prData.head.repo.name,
+                    name: "require-label",
+                    head_sha: prData.head.sha,
+                    conclusion: prData.labels.length > 0 ? 'success' : 'failure'
+                });
+                console.log(JSON.stringify(data));
+            }
+            else {
+                console.log("test");
+                const payload = JSON.stringify(github.context.payload, undefined, 2);
+                console.log(payload);
+                actionscore.setOutput("T1", "T2");
+                actionscore.setFailed("Bommel");
+            }
         }
         else {
-            actionscore.setFailed("No Label");
+            actionscore.setFailed('This action can only be used on pull requests');
         }
-    }
-    else {
-        console.log("test");
-        const payload = JSON.stringify(github.context.payload, undefined, 2);
-        console.log(payload);
-        actionscore.setOutput("T1", "T2");
-        actionscore.setFailed("Bommel");
-    }
+    });
 }
-else {
-    actionscore.setFailed('This action can only be used on pull requests');
-}
+runa().catch((err) => {
+    console.error(err);
+    actionscore.setFailed("Error");
+}).then(() => {
+    actionscore.info("Success");
+});
 
 
 /***/ }),
