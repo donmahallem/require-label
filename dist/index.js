@@ -3899,6 +3899,9 @@ if (github.context.eventName.localeCompare('pull_request')) {
         actionscore.info("Done successfully");
     });
 }
+else {
+    actionscore.setFailed('This action can only be used on pull requests');
+}
 
 
 /***/ }),
