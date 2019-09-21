@@ -7,6 +7,7 @@ const config: Config = {
         required: false
     })
 };
+console.log("filter: ", config.FILTER)
 console.log(github.context.action, github.context.eventName);
 if (github.context.action.localeCompare('pull_request')) {
     if (github.context.payload.pull_request) {

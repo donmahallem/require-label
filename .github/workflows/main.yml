@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Hello world action step
+      - name: No Filter
         id: hello
         uses: ./
+      - name: No Filter
+        id: hello
+        uses: ./
+        with:
+          filter: [testlabel,bug,enhancement]
