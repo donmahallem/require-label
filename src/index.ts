@@ -10,8 +10,9 @@ const config: Config = {
 if (github.context.eventName.localeCompare('pull_request')) {
     async function run() {
         const githubclient: any = new github.GitHub(config.GITHUB_SECRET);
-        const { data } = await githubclient.pulls.createReview();
+        const data = await githubclient.pulls.createReview();
         console.log(data);
+        actionscore.info(data);
         /*
         actionscore.info("Triggered on: " + github.context.action + " - " + github.context.eventName);
         actionscore.info("Payload " + github.context.payload.action);
@@ -33,5 +34,7 @@ if (github.context.eventName.localeCompare('pull_request')) {
     }
     run().catch((err) => {
         actionscore.setFailed("Error occured");
+    }).then(() => {
+        actionscore.info("Done successfully");
     })
 }

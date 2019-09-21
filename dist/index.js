@@ -3870,8 +3870,9 @@ if (github.context.eventName.localeCompare('pull_request')) {
     function run() {
         return __awaiter(this, void 0, void 0, function* () {
             const githubclient = new github.GitHub(config.GITHUB_SECRET);
-            const { data } = yield githubclient.pulls.createReview();
+            const data = yield githubclient.pulls.createReview();
             console.log(data);
+            actionscore.info(data);
             /*
             actionscore.info("Triggered on: " + github.context.action + " - " + github.context.eventName);
             actionscore.info("Payload " + github.context.payload.action);
@@ -3894,6 +3895,8 @@ if (github.context.eventName.localeCompare('pull_request')) {
     }
     run().catch((err) => {
         actionscore.setFailed("Error occured");
+    }).then(() => {
+        actionscore.info("Done successfully");
     });
 }
 
