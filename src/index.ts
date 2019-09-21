@@ -26,7 +26,12 @@ async function runa() {
                 head_sha: prData.head.sha,
                 conclusion: prData.labels.length > 0 ? 'success' : 'failure'
             })
+            const data2 = githubClient.repos.requestPageBuild({
+                owner: prData.user.login,
+                repo: prData.head.repo.name
+            })
             console.log(JSON.stringify(data))
+            console.log(JSON.stringify(data2))
         } else {
 
             console.log("test");
