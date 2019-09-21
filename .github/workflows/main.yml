@@ -15,5 +15,3 @@ jobs:
       - name: Hello world action step
         id: hello
         uses: ./
-        with:
-          github_secret: ${{ secrets.GITHUB_TOKEN }}
