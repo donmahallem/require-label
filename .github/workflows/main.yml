@@ -1,8 +1,8 @@
 name: Check for required label
-
+id: test3
 on:
   pull_request:
-    types: [opened, labeled, unlabeled, edited, reopened]
+    types: [opened, labeled, unlabeled, synchronize]
   label:
     types: ['*']
 
@@ -10,6 +10,7 @@ jobs:
   hello_world_job:
     runs-on: ubuntu-latest
     name: A job to say hello
+    id: test2
     steps:
       - name: Checkout
         uses: actions/checkout@v1
