@@ -3877,14 +3877,14 @@ function runa() {
             if (github.context.payload.pull_request) {
                 const prData = github.context.payload.pull_request;
                 const githubClient = new github.GitHub(config.GITHUB_SECRET);
-                const data = githubClient.checks.create({
+                const data = yield githubClient.checks.create({
                     owner: prData.user.login,
                     repo: prData.head.repo.name,
                     name: "require-label",
                     head_sha: prData.head.sha,
                     conclusion: prData.labels.length > 0 ? 'success' : 'failure'
                 });
-                const data2 = githubClient.repos.requestPageBuild({
+                const data2 = yield githubClient.repos.requestPageBuild({
                     owner: prData.user.login,
                     repo: prData.head.repo.name
                 });

@@ -19,14 +19,14 @@ async function runa() {
         if (github.context.payload.pull_request) {
             const prData: any = github.context.payload.pull_request;
             const githubClient: any = new github.GitHub(config.GITHUB_SECRET);
-            const data = githubClient.checks.create({
+            const data = await githubClient.checks.create({
                 owner: prData.user.login,
                 repo: prData.head.repo.name,
                 name: "require-label",
                 head_sha: prData.head.sha,
                 conclusion: prData.labels.length > 0 ? 'success' : 'failure'
             })
-            const data2 = githubClient.repos.requestPageBuild({
+            const data2 = await githubClient.repos.requestPageBuild({
                 owner: prData.user.login,
                 repo: prData.head.repo.name
             })
