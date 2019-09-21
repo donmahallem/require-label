@@ -1,3 +1,5 @@
+name: Check for required label
+
 on: [push,pull_request]
 
 jobs:
