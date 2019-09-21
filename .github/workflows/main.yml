@@ -16,4 +16,4 @@ jobs:
         id: hello
         uses: ./
         with:
-          github_secret: ${{ secrets.github_secret }}
+          github_secret: ${{ secrets.GITHUB_TOKEN }}
