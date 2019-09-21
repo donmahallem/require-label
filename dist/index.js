@@ -3875,7 +3875,8 @@ if (github.context.action.localeCompare('pull_request')) {
             const data = yield githubclient.pulls.createReview({
                 pull_number: pr.number,
                 owner: pr.base.user.login,
-                repo: pr.base.repo.name
+                repo: pr.base.repo.name,
+                event: 'REQUEST_CHANGES'
             });
             console.log(data);
             actionscore.info(data);
