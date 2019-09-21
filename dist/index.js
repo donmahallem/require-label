@@ -3866,7 +3866,8 @@ const config = {
         required: true
     })
 };
-if (github.context.eventName.localeCompare('pull_request')) {
+console.log(github.context.action, github.context.eventName);
+if (github.context.action.localeCompare('pull_request')) {
     function run() {
         return __awaiter(this, void 0, void 0, function* () {
             const githubclient = new github.GitHub(config.GITHUB_SECRET);

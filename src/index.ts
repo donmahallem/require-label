@@ -7,7 +7,8 @@ const config: Config = {
         required: true
     })
 };
-if (github.context.eventName.localeCompare('pull_request')) {
+console.log(github.context.action, github.context.eventName);
+if (github.context.action.localeCompare('pull_request')) {
     async function run() {
         const githubclient: any = new github.GitHub(config.GITHUB_SECRET);
         const data = await githubclient.pulls.createReview();
