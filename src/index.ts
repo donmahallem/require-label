@@ -7,9 +7,7 @@ const config: Config = {
         required: true
     })
 };
-
-const payload = JSON.stringify(github.context.payload, undefined, 3);
-console.log(payload);
+console.log(github.context.eventName, github.context.action)
 actionscore.info("Triggered on: " + github.context.action + " - " + github.context.eventName);
 actionscore.info("Payload " + github.context.payload.action);
 if (github.context.payload.pull_request) {
