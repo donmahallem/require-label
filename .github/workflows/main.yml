@@ -1,6 +1,10 @@
 name: Check for required label
 
-on: [pull_request,label]
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled, edited, reopened]
+  label:
+    types: [*]
 
 jobs:
   hello_world_job:
