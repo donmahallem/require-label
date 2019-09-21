@@ -3895,7 +3895,7 @@ if (github.context.action.localeCompare('pull_request')) {
         });
     }
     run().catch((err) => {
-        actionscore.debug(err);
+        actionscore.info(err);
         actionscore.setFailed("Error occured");
     }).then(() => {
         actionscore.info("Done successfully");
