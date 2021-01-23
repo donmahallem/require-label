@@ -21,7 +21,9 @@
     "test:lint": "npm run lint",
     "test:build": "npm run build",
     "test:unit": "npm run test-ci",
-    "test:docs": "npm run docs"
+    "test:docs": "npm run docs",
+    "ncc:build": "ncc build ./src/index.ts -o ./dist -s",
+    "ncc:run": "ncc run"
   },
   "homepage": "https://donmahallem.github.io/require-label/",
   "author": {
@@ -56,6 +58,8 @@
     "esModuleInterop": true
   },
   "devDependencies": {
+    "@types/node": "^12.7.5",
+    "@zeit/ncc": "^0.20.5",
     "nodemon": "~1.19.2",
     "tslint": "~5.20.0",
     "typescript": "~3.6.3"
@@ -91,7 +95,7 @@
     "src/*"
   ],
   "dependencies": {
-    "@actions/core": "~1.1.1",
+    "@actions/core": "~1.2.4",
     "@actions/github": "~1.1.0"
   }
 }
